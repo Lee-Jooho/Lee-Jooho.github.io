@@ -76,6 +76,31 @@
 
     });
 
+    // 250329 이주호 추가 -> 클래스로 변경 Create timeline
+    $('.experience-timeline').each(function() {
+        const $this = $(this); // Store reference to this
+        const $userContent = $this.children('div'); // user content
+
+        // 각 타임라인 블록 생성
+        $userContent.each(function() {
+            $(this).addClass('vtimeline-content').wrap('<div class="vtimeline-point"><div class="vtimeline-block"></div></div>');
+        });
+
+        // 각 블록에 아이콘 추가
+        $this.find('.vtimeline-point').each(function() {
+            $(this).prepend('<div class="vtimeline-icon"><i class="fa fa-map-marker"></i></div>');
+        });
+
+        // 존재하는 경우 타임라인에 날짜 추가
+        $this.find('.vtimeline-content').each(function() {
+            const date = $(this).data('date');
+            if (date) { // 존재할 경우 추가
+                $(this).parent().prepend('<span class="vtimeline-date">' + date + '</span>');
+            }
+        });
+    });
+
+
     // Open mobile menu
     $('#mobile-menu-open').click(function() {
         $('header, body').addClass('active');
